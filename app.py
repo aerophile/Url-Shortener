@@ -1,5 +1,6 @@
 from flask import Flask, redirect
 app = Flask(__name__)
+import db_crud
 
 @app.route('/')
 def home_page():
@@ -7,10 +8,7 @@ def home_page():
 
 @app.route('/<page>/')
 def redirect_function(page):
-    if page == 'hi':
-        return redirect("http://github.com",code=302)
-    else:
-        return redirect("http://isup.me",code=302)
+    return redirect( db_crud.expand_url(page) ,code=302)
 
 if __name__ == '__main__':
-   app.run()
+    app.run()

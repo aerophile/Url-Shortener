@@ -6,7 +6,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 error_page_url = "http://sh.ubham.com/error"
 
-def make_engine(password=password.db_password, db_name = "url_shortener"):
+def make_engine(password=password.db_password, db_name = "url_database"):
     "retruns session using connection engine for get_row function"
     engine = create_engine('mysql://root:'+ password +'@localhost/'+ db_name +'?charset=utf8&use_unicode=0', pool_recycle=3600)
     #connection = engine.connect()
@@ -18,7 +18,7 @@ Base = declarative_base()
 Base.metadata.reflect(engine)
 
 class Url_table(Base):
-    __table__ = Base.metadata.tables['url_data']
+    __table__ = Base.metadata.tables['url_table']
 
 def make_session():
     "retruns session using connection engine for get_row function"
@@ -33,20 +33,20 @@ def expand_url(url_extension="home"):
     results = db_session.query(Url_table).filter_by(id=url_extension)
     
     print results.count
-    if results.count == 0 : # Doesn't work still returns None.. temporariy solved at flask's level
+    if results.count == 0 : #issue: Doesn't work still returns None.. temporariy solved at flask's level
         return error_page_url
     else:
         for row in results:
             return row.long_url
 
     
-def add_url_record(url_extension,long_url,key):
+def add_url_record(url_extension,long_url,key): #issue: updates even when incorrect key is provided
    
     conn = engine.connect()
     meta = MetaData()
     meta.reflect(bind=engine)
     try:
-        stmt = meta.tables["url_data"].insert().values(id=url_extension,long_url=long_url,changekey=key,creation_date=time.strftime("%y-%m-%d"))
+        stmt = meta.tables["url_table"].insert().values(id=url_extension,long_url=long_url,changekey=key,creation_date=time.strftime("%y-%m-%d"))
         conn.execute(stmt)
     except:
         return "error"
@@ -58,7 +58,7 @@ def update_url_record(key,new_long_url):
     meta.reflect(bind=engine)
     
     try:
-        stmt = update(meta.tables["url_data"]).where(meta.tables["url_data"].c.changekey==key).values(long_url=new_long_url,modify_date=time.strftime("%y-%m-%d"))
+        stmt = update(meta.tables["url_table"]).where(meta.tables["url_table"].c.changekey==key).values(long_url=new_long_url,modify_date=time.strftime("%y-%m-%d"))
         conn.execute(stmt)
     except:
         return "error"

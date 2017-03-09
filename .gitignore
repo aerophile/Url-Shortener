@@ -1,0 +1,9 @@
+*.pyc
+*.swp
+# Packages
+*.egg
+*.egg-info
+# Installer logs
+pip-log.txt
+venv
+password.py

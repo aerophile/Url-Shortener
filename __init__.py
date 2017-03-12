@@ -18,9 +18,9 @@ def shortener():
     form = UrlForm()
     bijective_obj = bijective.ShortURL()
     if form.validate_on_submit():
-        change_key = "~ck"+str(bijective_obj.encode(randint(1000000000000,9999999999999)))
+        change_key ="~ck"+str(bijective_obj.encode(randint(100000000,99999999999)))
         if form.custom_alias.data == '':
-            form.custom_alias.data = str(bijective_obj.encode(randint(1000000000000,9999999999999)))
+            form.custom_alias.data = str(bijective_obj.encode(randint(100000000000,999999999999)))
         if db_crud.add_url_record( form.custom_alias.data,f.validate_urls( form.long_url.data),change_key) == "inserted":
             flash('Great ! Go checkout sh.ubham.com/%s' %(form.custom_alias.data))    
             return render_template('form.html',form=form,custom_alias=form.custom_alias.data,link_to = "http://sh.ubham.com/"+form.custom_alias.data, short_url_creation = True ,changekey=change_key)

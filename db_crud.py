@@ -40,8 +40,8 @@ def expand_url(url_extension="home"):
             return row.long_url
 
     
-def add_url_record(url_extension,long_url,key): #issue: updates even when incorrect key is provided
-   
+def add_url_record(url_extension,long_url,key): 
+   "add url to db"
     conn = engine.connect()
     meta = MetaData()
     meta.reflect(bind=engine)

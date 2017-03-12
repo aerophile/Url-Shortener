@@ -6,7 +6,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 error_page_url = "http://sh.ubham.com/error"
 
-def make_engine(password=password.db_password, db_name = "url_database"):
+def make_engine(password=password.db_password, db_name = password.db_name):
     "retruns session using connection engine for get_row function"
     engine = create_engine('mysql://root:'+ password +'@localhost/'+ db_name +'?charset=utf8&use_unicode=0', pool_recycle=3600)
     #connection = engine.connect()

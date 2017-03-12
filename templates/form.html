@@ -1,42 +1,58 @@
 <!DOCTYPE html>
 <html>
-	<head><title>Sh.ubham.com</title></head>
+        <head><title>Sh.ubham.com</title></head>
 
-	<body>
-             <div clss="container container-fluid">
-		<h2> Shorten Long Urls, Change their destination any Anytime. <h2>
-	   	
-		<form action="" method="post">
-		{{ form.csrf_token}}
-		  Long url:{{form.long_url}}<br>
+        <body>
 
-		   sh.ubham.com/{{form.custom_alias}}<br>
-		  <input type="submit" value="Submit">
-		</form>	
+
+    <div class="col-md-10 col-md-offset-1">
+
+
+
+         <div clss="container container-fluid">
+                <h2> Shorten Long Urls, Change their destination any Anytime. <h2>
+
+                <form action="" method="post">
+                {{ form.csrf_token}}
+                  Enter Long url:{{form.long_url}}<br>
+
+                   sh.ubham.com/{{form.custom_alias}}<br>
+                  <p>(optional)</p>
+
+                        <input type="submit" value="Submit"><br>
+
+                </form>
 </div>
 <div clss="container container-fluid">
-		<hr>
+                <hr>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <p>
         {% for message in messages %}
-            <h2><a href= "http://sh.ubham.com/{{form.custom_alias.data}}"> {{ message }} </a></h2>
-		{% if messages %}
-	    <h3>Change link (Book Mark this if you want to change destination later.)</h3>
-		{% endif %}
+            <h2><a href= "{{link_to}}" 
+                        {% if short_url_creation %}
+
+                        target= "_blank"
+                        {% endif %}
+
+                      > {{ message }} </a></h2>
+                {% if short_url_creation %}
+
+             <h3><a href="http://sh.ubham.com/{{changekey}}"> click to change short url Destination (Bookmark this if you ever want to change the destination later.)</a></h3>
+                {% endif %}
         {% endfor %}
         </p>
       {% endif %}
     {% endwith %}
 
                </div>
-		<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        </div>  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonym$
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="$
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	</body>	
+        </body>
 </html>

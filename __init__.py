@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home_page():
-   return redirect("http://sh.ubham.com/shorten",code=302)
+   return redirect("http://sh.ubham.com/shorten",code=301)
 
 @app.route('/shorten/', methods=['GET', 'POST'])
 def shortener():
@@ -45,7 +45,7 @@ def redirect_function(page):
                 return render_template('change_form.html',form1=form1,new_long_url=new_long_url)
         return render_template('change_form.html',form1=form1)
     else:
-        return redirect( db_crud.expand_url(page) ,code=302)
+        return redirect( db_crud.expand_url(page) ,code=301)
 
 if __name__ == '__main__':
     app.run()

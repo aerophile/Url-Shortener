@@ -8,10 +8,11 @@ import bijective
 app = Flask(__name__)
 
 #app.config.from_object('config')
+redirect_type = 301 #change as appropriate
 
 @app.route('/')
 def home_page():
-   return redirect("http://sh.ubham.com/shorten",code=301)
+   return redirect("http://sh.ubham.com/shorten",code = redirect_type)
 
 @app.route('/shorten/', methods=['GET', 'POST'])
 def shortener():
@@ -19,7 +20,7 @@ def shortener():
     bijective_obj = bijective.ShortURL()
     if form.validate_on_submit():
         change_key ="~ck"+str(bijective_obj.encode(randint(100000000,99999999999)))
-        if form.custom_alias.data == '':
+        if form.custom_alias.data == '': #No custom alias given
             form.custom_alias.data = str(bijective_obj.encode(randint(100000000000,999999999999)))
         if db_crud.add_url_record( form.custom_alias.data,f.validate_urls( form.long_url.data),change_key) == "inserted":
             flash('Great ! Go checkout sh.ubham.com/%s' %(form.custom_alias.data))    
@@ -28,13 +29,13 @@ def shortener():
             flash('Woops! The custom alias sh.ubham.com/%s  is taken. Try a different one. '%(form.custom_alias.data))    
             return render_template('form.html',form=form, link_to = "http://sh.ubham.com/shorten", short_url_creation = False) 
 
-    return render_template('form.html', form=form)
+    return render_template('form.html', form = form)
 
 @app.route('/None/')
 def not_found():
     return render_template('notfound.html')
 
-@app.route('/<page>/', methods=['GET', 'POST'] )
+@app.route('/<page>/', methods = ['GET', 'POST'] )
 def redirect_function(page):
     if page[0:3] == "~ck":
         form1 = ChangeUrlForm()
@@ -42,10 +43,10 @@ def redirect_function(page):
             new_long_url = f.validate_urls(form1.new_long_url.data)
             if db_crud.update_url_record(page,new_long_url) == "updated":
                 flash('Destination changed to %s '%(new_long_url))
-                return render_template('change_form.html',form1=form1,new_long_url=new_long_url)
-        return render_template('change_form.html',form1=form1)
+                return render_template('change_form.html',form1 = form1,new_long_url = new_long_url)
+        return render_template('change_form.html',form1 = form1)
     else:
-        return redirect( db_crud.expand_url(page) ,code=301)
+        return redirect( db_crud.expand_url(page) ,code = redirect_type)
 
 if __name__ == '__main__':
     app.run()

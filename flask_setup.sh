@@ -1,7 +1,7 @@
 #!/bin/bash
 sudo apt-get update
 sudo apt-get install apache2 -y
-sudo apt-get install libapache2-mod-wsgi python-dev -y
+sudo apt-get install libapache2-mod-wsgi python-dev libmysqlclient-dev -y
 apt-get install python-pymysql -y
 apt-get install python-sqlalchemy -y
 apt-get install python-mysqldb -y
@@ -20,11 +20,11 @@ def hello():
     return "Hello, Flask is working !"
 if __name__ == "__main__":
     app.run()' >> __init__.py
-sudo apt-get install python-pip 
+sudo apt-get install python-pip -y
 sudo pip install virtualenv 
 sudo virtualenv venv
-source venv/bin/activate 
-sudo pip install Flask sqlalchemy
+source venv/bin/activate
+sudo pip install Flask sqlalchemy flask_wtf sqlalchemy MySQL-python 
 deactivate
 sudo touch /etc/apache2/sites-available/FlaskApp.conf
 
@@ -55,10 +55,9 @@ logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,"/var/www/FlaskApp/")
 
 from FlaskApp import app as application
-application.secret_key = "Chnage this secret key to something unique that can not be guessed easily."' >> flaskapp.wsgi 
+application.secret_key = "Change this secret key to something unique that can not be guessed easily."' >> flaskapp.wsgi 
 sudo service apache2 restart 
 echo "Installing MySQL... standby to set root Password"
 sudo apt-get install mysql-server -y
-PUBLIC_IP=wget http://ipecho.net/plain -O - -q ;
-echo "COMPLETED, Navigate to the Ip mentioned below too check if Flask has been successfully installed."
 
+echo "COMPLETED, Navigate to the Ip mentioned below too check if Flask has been successfully installed."

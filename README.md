@@ -1,6 +1,6 @@
 # Flask URL Shortener
 
-A python Flask and MySQL based URL shortening project that I built for personal use. You can try out and play with the deployed version at **[Sh.ubham.com/shorten](http://Sh.ubham.com/shorten). **
+A python Flask and MySQL based URL shortening project that I built for personal use. You can try out and play with the deployed version at **[Sh.ubham.com/shorten](http://Sh.ubham.com/shorten).**
 
 ## Some key Features
 ### Ability to change short URL destinations without Login
@@ -11,6 +11,6 @@ This change URL is only presented once to the user during the short URL creation
 ###Security aspects of the "Change URL" mechanism
 * The change URL is randomly chosen among a trillion possible integers and that should be a good deterrent to prevent any type of guessing of change URLs.
 
-*  Even if a Change URL is discovered, the Change URL page ** doesn't contain any details about which short URL's destination it can modify. **
+*  Even if a Change URL is discovered, the Change URL page **doesn't contain any details about which short URL's destination it can modify.**
 
 * By using a Captcha service such as Google's new Invisible Captcha service on the change pages, the attacks possible by bots trying to guess change page urls can also be prevented.

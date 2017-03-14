@@ -8,7 +8,7 @@ A python Flask and MySQL based URL shortening project that I built for personal 
 
 This change URL is only presented once to the user during the short URL creation process. If the user fails to save/Bookmark this URL then it is gone forever and can not be retrieved again.
 
-###Security aspects of the "Change URL" mechanism
+### Security aspects of the "Change URL" mechanism
 * The change URL is randomly chosen among a trillion possible integers and that should be a good deterrent to prevent any type of guessing of change URLs.
 
 *  Even if a Change URL is discovered, the Change URL page **doesn't contain any details about which short URL's destination it can modify.**

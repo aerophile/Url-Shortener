@@ -17,7 +17,7 @@ echo 'from flask import Flask
 app = Flask(__name__)
 @app.route("/")
 def hello():
-    return "Hello, I love Digital Ocean!"
+    return "Hello, Flask is working !"
 if __name__ == "__main__":
     app.run()' >> __init__.py
 sudo apt-get install python-pip 
@@ -36,7 +36,7 @@ echo '<VirtualHost *:80>
 			Order allow,deny
 			Allow from all
 		</Directory>
-		Alias /static /var/www/FlaskApp/FlaskApp/static
+		Alias /static /var/www/FlaskApp/FlaskApp/stati
 		<Directory /var/www/FlaskApp/FlaskApp/static/>
 			Order allow,deny
 			Allow from all
@@ -44,7 +44,7 @@ echo '<VirtualHost *:80>
 		ErrorLog ${APACHE_LOG_DIR}/error.log
 		LogLevel warn
 		CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>'' >> /etc/apache2/sites-available/FlaskApp.conf
+</VirtualHost>' >> /etc/apache2/sites-available/FlaskApp.conf
 sudo a2ensite FlaskApp
 cd /var/www/FlaskApp
 sudo touch flaskapp.wsgi
@@ -55,9 +55,10 @@ logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,"/var/www/FlaskApp/")
 
 from FlaskApp import app as application
-application.secret_key = "BoooHooo"' >> flaskapp.wsgi 
+application.secret_key = "Chnage this secret key to something unique that can not be guessed easily."' >> flaskapp.wsgi 
 sudo service apache2 restart 
 echo "Installing MySQL... standby to set root Password"
 sudo apt-get install mysql-server -y
-echo "COMPLETED"
+PUBLIC_IP=wget http://ipecho.net/plain -O - -q ;
+echo "COMPLETED, Navigate to the Ip mentioned below too check if Flask has been successfully installed."
 
